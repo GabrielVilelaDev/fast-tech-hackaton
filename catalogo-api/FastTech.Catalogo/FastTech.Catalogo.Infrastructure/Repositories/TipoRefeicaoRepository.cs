@@ -9,22 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastTech.Catalogo.Infrastructure.Repositories
+namespace FastTech.Catalogo.Infrastructure.Repositories;
+
+public class TipoRefeicaoRepository : RepositoryBase<TipoRefeicao>, ITipoRefeicaoRepository
 {
-    public class TipoRefeicaoRepository : RepositoryBase<TipoRefeicao>, ITipoRefeicaoRepository
-    {
-        public TipoRefeicaoRepository(
-            CatalogoCommandDbContext commandContext,
-            CatalogoQueryDbContext queryContext)
-            : base(commandContext, queryContext) { }
+    public TipoRefeicaoRepository(
+        CatalogoCommandDbContext commandContext,
+        CatalogoQueryDbContext queryContext)
+        : base(commandContext, queryContext) { }
 
-        public async Task<IEnumerable<TipoRefeicao>> ListarTodosAsync()
-            => await _querySet.AsNoTracking().ToListAsync();
+    public override async Task<IEnumerable<TipoRefeicao>> ListarTodosAsync()
+        => await _querySet.AsNoTracking().ToListAsync();
 
-        public async Task<TipoRefeicao?> ObterPorIdAsync(int id)
-            => await _querySet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+    public async Task<TipoRefeicao?> ObterPorIdAsync(Guid id)
+        => await _querySet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
 
-        public async Task<TipoRefeicao?> ObterPorNomeAsync(string nome)
-            => await _querySet.AsNoTracking().FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase));
-    }
+    public async Task<TipoRefeicao?> ObterPorNomeAsync(string nome)
+        => await _querySet.AsNoTracking().FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase));
 }

@@ -34,7 +34,7 @@ namespace FastTech.Catalogo.Application.Services
             return itens.Select(MapToOutput);
         }
 
-        public async Task<IEnumerable<ItemOutputDto>> ListarPorTipoAsync(int tipoRefeicaoId)
+        public async Task<IEnumerable<ItemOutputDto>> ListarPorTipoAsync(Guid tipoRefeicaoId)
         {
             var itens = await _itemRepository.ListarPorTipoAsync(tipoRefeicaoId);
             return itens.Select(MapToOutput);

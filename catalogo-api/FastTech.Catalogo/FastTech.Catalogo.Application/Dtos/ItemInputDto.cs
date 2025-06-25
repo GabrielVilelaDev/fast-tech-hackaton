@@ -10,7 +10,7 @@ namespace FastTech.Catalogo.Application.Dtos
     {
         public required string Nome { get; set; }
         public required string Descricao { get; set; }
-        public required int TipoRefeicaoId { get; set; }
+        public required Guid TipoRefeicaoId { get; set; }
         public required decimal Valor { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace FastTech.Catalogo.Domain.Interfaces
 {
     public interface ITipoRefeicaoRepository : IRepositoryBase<TipoRefeicao>
     {
-        Task<TipoRefeicao?> ObterPorIdAsync(int id);
+        Task<TipoRefeicao?> ObterPorIdAsync(Guid id);
         Task<TipoRefeicao?> ObterPorNomeAsync(string nome);
     }
 }

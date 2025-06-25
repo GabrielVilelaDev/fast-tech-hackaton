@@ -1,15 +1,10 @@
 ﻿using FastTech.Catalogo.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FastTech.Catalogo.Infrastructure.Persistence.Mappings
 {
-    public class TipoRefeicaoConfiguration : IEntityTypeConfiguration<TipoRefeicao>
+    public class TipoRefeicaoConfiguracao : IEntityTypeConfiguration<TipoRefeicao>
     {
         public void Configure(EntityTypeBuilder<TipoRefeicao> builder)
         {
@@ -19,7 +14,19 @@ namespace FastTech.Catalogo.Infrastructure.Persistence.Mappings
 
             builder.Property(t => t.Nome)
                 .IsRequired()
-                .HasMaxLength(250);
+                .HasMaxLength(100);
+
+            builder.Property(t => t.DataCriacao)
+                .IsRequired();
+
+            builder.Property(t => t.DataEdicao);
+
+            builder.Property(t => t.DataExclusao);
+
+            builder.HasMany(t => t.Itens)
+                .WithOne(i => i.TipoRefeicao)
+                .HasForeignKey(i => i.TipoRefeicaoId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -35,9 +35,6 @@ namespace FastTech.Catalogo.Infrastructure.Persistence.Mappings
             builder.HasOne(i => i.TipoRefeicao)
                 .WithMany()
                 .HasForeignKey(i => i.TipoRefeicaoId);
-
-            builder.Property(i => i.Ativo)
-                .IsRequired();
         }
     }
 }

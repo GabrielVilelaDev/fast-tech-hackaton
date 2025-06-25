@@ -14,7 +14,7 @@ namespace FastTech.Catalogo.Application.Interfaces
     {
         Task<ItemOutputDto?> ObterPorIdAsync(Guid id);
         Task<IEnumerable<ItemOutputDto>> ListarTodosAsync();
-        Task<IEnumerable<ItemOutputDto>> ListarPorTipoAsync(int tipoRefeicaoId);
+        Task<IEnumerable<ItemOutputDto>> ListarPorTipoAsync(Guid tipoRefeicaoId);
         Task AdicionarAsync(ItemInputDto dto);
         Task AtualizarAsync(ItemUpdateDto dto);
         Task RemoverAsync(Guid id);
