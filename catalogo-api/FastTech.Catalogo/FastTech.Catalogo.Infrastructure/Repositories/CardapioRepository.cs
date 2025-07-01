@@ -14,10 +14,11 @@ public class CardapioRepository : RepositoryBase<Cardapio>, ICardapioRepository
     : base(commandContext, queryContext) { }
 
     public async Task<Cardapio?> ObterPorNomeAsync(string nome)
-    => await _querySet.AsNoTracking().FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase));
+    => await _querySet.AsNoTracking()
+        .FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase) && t.DataExclusao == null);
 
     public async Task<Cardapio?> ObterPorIdAsync(Guid id)
     => await _querySet
         .AsNoTracking()
-        .FirstOrDefaultAsync(i => i.Id == id);
+        .FirstOrDefaultAsync(i => i.Id == id && i.DataExclusao == null);
 }

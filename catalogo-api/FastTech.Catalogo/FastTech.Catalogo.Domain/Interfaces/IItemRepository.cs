@@ -11,5 +11,6 @@ namespace FastTech.Catalogo.Domain.Interfaces
     {
         Task<Item?> ObterPorIdAsync(Guid id);
         Task<IEnumerable<Item>> ListarPorTipoAsync(Guid tipoRefeicaoId);
+        Task<Item?> ObterPorNomeAsync(string nome);
     }
 }

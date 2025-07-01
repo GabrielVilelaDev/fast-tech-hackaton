@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace FastTech.Catalogo.Application.Dtos
 {
-    public class ItemOutputDto
+    public class CardapioOutputDto
     {
         public Guid Id { get; set; }
         public required string Nome { get; set; }
-        public required string Descricao { get; set; }
-        public required string TipoRefeicaoNome { get; set; }
-        public decimal Valor { get; set; }
+        public string? Descricao { get; set; }
+        public IEnumerable<ItemOutputDto>? Itens { get; set; }
     }
 }

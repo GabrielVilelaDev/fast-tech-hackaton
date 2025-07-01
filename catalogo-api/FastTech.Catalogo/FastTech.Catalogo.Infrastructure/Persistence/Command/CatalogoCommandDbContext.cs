@@ -13,6 +13,7 @@ namespace FastTech.Catalogo.Infrastructure.Persistence.Command
         public CatalogoCommandDbContext(DbContextOptions<CatalogoCommandDbContext> options)
             : base(options) { }
 
+        public DbSet<Cardapio> Cardapios { get; set; }
         public DbSet<Item> Itens { get; set; }
         public DbSet<TipoRefeicao> TiposRefeicao { get; set; }
 

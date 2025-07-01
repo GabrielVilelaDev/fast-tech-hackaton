@@ -1,4 +1,5 @@
-﻿using FastTech.Catalogo.Domain.Interfaces;
+﻿using FastTech.Catalogo.Domain.Entities;
+using FastTech.Catalogo.Domain.Interfaces;
 using FastTech.Catalogo.Infrastructure.Persistence.Command;
 using FastTech.Catalogo.Infrastructure.Persistence.Query;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FastTech.Catalogo.Infrastructure.Repositories;
 
-public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : EntidadeBase
 {
     protected readonly CatalogoCommandDbContext _commandContext;
     protected readonly CatalogoQueryDbContext _queryContext;

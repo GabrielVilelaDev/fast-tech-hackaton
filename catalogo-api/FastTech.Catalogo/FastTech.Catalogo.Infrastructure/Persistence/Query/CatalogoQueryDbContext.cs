@@ -14,6 +14,7 @@ namespace FastTech.Catalogo.Infrastructure.Persistence.Query
             : base(options) { }
 
         public DbSet<Item> Itens { get; set; }
+        public DbSet<Cardapio> Cardapios { get; set; }
         public DbSet<TipoRefeicao> TiposRefeicao { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

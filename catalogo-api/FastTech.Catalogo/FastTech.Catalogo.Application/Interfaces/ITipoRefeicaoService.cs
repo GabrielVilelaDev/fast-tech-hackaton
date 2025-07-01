@@ -1,4 +1,5 @@
-﻿using FastTech.Catalogo.Domain.Entities;
+﻿using FastTech.Catalogo.Application.Dtos;
+using FastTech.Catalogo.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace FastTech.Catalogo.Application.Interfaces
 {
     public interface ITipoRefeicaoService
     {
-        Task<IEnumerable<TipoRefeicao>> ListarTodosAsync();
-        Task<TipoRefeicao?> ObterPorIdAsync(int id);
-        Task<TipoRefeicao?> ObterPorNomeAsync(string nome);
+        Task<IEnumerable<TipoRefeicaoOutputDto>> ListarTodosAsync();
+        Task<TipoRefeicaoOutputDto?> ObterPorIdAsync(Guid id);
+        Task<TipoRefeicaoOutputDto?> ObterPorNomeAsync(string nome);
     }
 }

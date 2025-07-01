@@ -3,27 +3,40 @@ using System.Collections.Generic;
 
 namespace FastTech.Catalogo.Domain.Entities
 {
-    public class Cardapio
+    public class Cardapio : EntidadeBase
     {
-        public Guid Id { get; private set; }
         public string Nome { get; private set; }
         public string? Descricao { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public DateTime? DataEdicao { get; private set; }
         public DateTime? DataExclusao { get; private set; }
 
-        public ICollection<Item> Itens { get; private set; }
+        public ICollection<Item> Itens { get; private set; } = [];
 
         public Cardapio(string nome, string? descricao, DateTime dataCriacao)
         {
             Id = Guid.NewGuid();
             ValidarDados(nome, descricao);
+
             Nome = nome;
             Descricao = descricao;
             DataCriacao = dataCriacao;
             DataEdicao = null;
             DataExclusao = null;
-            Itens = new List<Item>();
+        }
+
+        public Cardapio(string nome, string? descricao, ICollection<Item> itens, DateTime dataCriacao)
+        {
+            Id = Guid.NewGuid();
+            ValidarDados(nome, descricao);
+
+            Nome = nome;
+            Descricao = descricao;
+            DataCriacao = dataCriacao;
+            DataEdicao = null;
+            DataExclusao = null;
+
+            AdicionarItens(itens);
         }
 
         public void Atualizar(string nome, string? descricao)
@@ -42,6 +55,29 @@ namespace FastTech.Catalogo.Domain.Entities
             DataExclusao = DateTime.UtcNow;
         }
 
+        public void AtualizarItens(IEnumerable<Item> itensAtualizados)
+        {
+            if (itensAtualizados is null)
+                throw new ArgumentException("A lista de itens não pode ser nula.");
+
+            var itensParaRemover = Itens.Where(item => !itensAtualizados.Contains(item)).ToList();
+            if(itensParaRemover.Count > 0)
+                RemoverItens(itensParaRemover);
+
+            var itensParaAdicionar = itensAtualizados.Where(item => !Itens.Contains(item)).ToList();
+            if(itensParaAdicionar.Count > 0)
+                AdicionarItens(itensParaAdicionar);
+        }
+
+        public void AdicionarItens(IEnumerable<Item> itens)
+        {
+            if (itens is null || !itens.Any())
+                throw new ArgumentException("Necessário preencher ao menos um item.");
+
+            foreach (var item in itens)
+                AdicionarItem(item);
+        }
+
         public void AdicionarItem(Item item)
         {
             if (item == null)
@@ -57,6 +93,15 @@ namespace FastTech.Catalogo.Domain.Entities
                 throw new ArgumentException("Item inválido para remoção.");
 
             Itens.Remove(item);
+        }
+
+        public void RemoverItens(IEnumerable<Item> itens)
+        {
+            if (itens == null || Itens.Count == 0 || Itens.Intersect(itens).Count() != itens.Count())
+                throw new ArgumentException("Itens inválidos para remoção.");
+
+            foreach(var item in itens)
+                RemoverItem(item);
         }
 
         public IEnumerable<Item> ListarItens()

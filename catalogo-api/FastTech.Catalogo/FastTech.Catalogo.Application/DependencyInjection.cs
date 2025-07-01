@@ -15,6 +15,7 @@ namespace FastTech.Catalogo.Application
         {
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<ITipoRefeicaoService, TipoRefeicaoService>();
+            services.AddScoped<ICardapioService, CardapioService>();
 
             return services;
         }

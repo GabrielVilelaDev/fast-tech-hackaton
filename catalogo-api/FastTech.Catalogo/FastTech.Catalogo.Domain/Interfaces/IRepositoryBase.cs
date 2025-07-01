@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FastTech.Catalogo.Domain.Interfaces
 {
-    public interface IRepositoryBase<T> where T : class
+    public interface IRepositoryBase<T> where T : EntidadeBase
     {
         Task<IEnumerable<T>> ListarTodosAsync();
         Task<IEnumerable<T>> ListarAsync(Expression<Func<T, bool>>? filtro = null);

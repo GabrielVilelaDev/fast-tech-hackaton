@@ -22,18 +22,23 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
         => await _querySet
             .Include(i => i.TipoRefeicao)
             .AsNoTracking()
-            .FirstOrDefaultAsync(i => i.Id == id);
+            .FirstOrDefaultAsync(i => i.Id == id && i.DataExclusao == null);
 
     public override async Task<IEnumerable<Item>> ListarTodosAsync()
         => await _querySet
             .Include(i => i.TipoRefeicao)
             .AsNoTracking()
+            .Where(i => i.DataExclusao == null)
             .ToListAsync();
 
     public async Task<IEnumerable<Item>> ListarPorTipoAsync(Guid tipoRefeicaoId)
         => await _querySet
             .Include(i => i.TipoRefeicao)
-            .Where(i => i.TipoRefeicaoId == tipoRefeicaoId)
+            .Where(i => i.TipoRefeicaoId == tipoRefeicaoId && i.DataExclusao == null)
             .AsNoTracking()
             .ToListAsync();
+
+    public async Task<Item?> ObterPorNomeAsync(string nome)
+        => await _querySet.AsNoTracking()
+            .FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase) && t.DataExclusao == null);
 }

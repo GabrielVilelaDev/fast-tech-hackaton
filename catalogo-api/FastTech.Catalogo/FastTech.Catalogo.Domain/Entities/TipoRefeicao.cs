@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace FastTech.Catalogo.Domain.Entities
 {
-    public class TipoRefeicao
+    public class TipoRefeicao : EntidadeBase
     {
-        public Guid Id { get; private set; }
         public string Nome { get; private set; }
         public DateTime? DataEdicao { get; private set; }
         public DateTime? DataExclusao { get; private set; }

@@ -23,7 +23,7 @@ namespace FastTech.Catalogo.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<TipoRefeicao>> GetPorId(int id)
+        public async Task<ActionResult<TipoRefeicao>> GetPorId(Guid id)
         {
             var tipo = await _tipoService.ObterPorIdAsync(id);
             if (tipo == null) return NotFound();

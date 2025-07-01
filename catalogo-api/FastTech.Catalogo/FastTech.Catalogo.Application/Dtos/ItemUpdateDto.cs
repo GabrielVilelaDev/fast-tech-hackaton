@@ -9,8 +9,8 @@ namespace FastTech.Catalogo.Application.Dtos
     public class ItemUpdateDto
     {
         public Guid Id { get; set; }
-        public string Nome { get; set; } = null!;
-        public string Descricao { get; set; } = null!;
+        public required string Nome { get; set; }
+        public required string Descricao { get; set; }
         public Guid TipoRefeicaoId { get; set; }
         public decimal Valor { get; set; }
     }

@@ -7,9 +7,8 @@ using FastTech.Catalogo.Domain.ValueObjects;
 
 namespace FastTech.Catalogo.Domain.Entities
 {
-    public class Item
+    public class Item : EntidadeBase
     {
-        public Guid Id { get; private set; }
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
         public TipoRefeicao TipoRefeicao { get; private set; }
@@ -30,7 +29,7 @@ namespace FastTech.Catalogo.Domain.Entities
             TipoRefeicao = tipoRefeicao;
             TipoRefeicaoId = tipoRefeicao.Id;
             Preco = preco;
-            Cardapios = new List<Cardapio>();
+            Cardapios = [];
             DataCriacao = DateTime.UtcNow;
             DataEdicao = null;
             DataExclusao = null;

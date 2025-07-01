@@ -1,3 +1,4 @@
+using FastTech.Catalogo.Application.Dtos;
 using FastTech.Catalogo.Application.Interfaces;
 using FastTech.Catalogo.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,14 @@ namespace FastTech.Catalogo.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetTodos()
+        public async Task<ActionResult<IEnumerable<ItemOutputDto>>> GetTodos()
         {
             var itens = await _itemService.ListarTodosAsync();
             return Ok(itens);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<Item>> GetPorId(Guid id)
+        public async Task<ActionResult<ItemOutputDto>> GetPorId(Guid id)
         {
             var item = await _itemService.ObterPorIdAsync(id);
             if (item == null) return NotFound();
@@ -31,24 +32,22 @@ namespace FastTech.Catalogo.Api.Controllers
         }
 
         [HttpGet("tipo/{tipoId:int}")]
-        public async Task<ActionResult<IEnumerable<Item>>> GetPorTipo(int tipoId)
+        public async Task<ActionResult<IEnumerable<ItemOutputDto>>> GetPorTipo(Guid tipoId)
         {
             var itens = await _itemService.ListarPorTipoAsync(tipoId);
             return Ok(itens);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Item item)
+        public async Task<ActionResult> Post([FromBody] ItemInputDto item)
         {
-            await _itemService.AdicionarAsync(item);
-            return CreatedAtAction(nameof(GetPorId), new { id = item.Id }, item);
+            var itemCriadoId = await _itemService.AdicionarAsync(item);
+            return CreatedAtAction(nameof(GetPorId), new { itemCriadoId });
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> Put(Guid id, [FromBody] Item item)
+        public async Task<ActionResult> Put([FromBody] ItemUpdateDto item)
         {
-            if (id != item.Id) return BadRequest("ID não confere com o corpo da requisição");
-
             await _itemService.AtualizarAsync(item);
             return NoContent();
         }
