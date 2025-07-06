@@ -30,7 +30,7 @@ namespace FastTech.Catalogo.Application.Test.Unitario.ItemService
         {
             // Arrange
             var tipo = new TipoRefeicao("Tipo Atualizado");
-            var existente = new Item("Item Teste", "Descrição Teste", new TipoRefeicao("Tipo Antigo"), new Preco(10.0m));
+            var existente = new Item("Item Teste", "Descrição Teste", tipo.Id, new Preco(10.0m));
             var dto = new ItemUpdateDto
             {
                 Id = existente.Id,
@@ -84,7 +84,7 @@ namespace FastTech.Catalogo.Application.Test.Unitario.ItemService
             };
 
             var tipo = new TipoRefeicao("Tipo Atualizado");
-            var existente = new Item("Item Original", "Descrição Original", tipo, new Preco(10.0m));
+            var existente = new Item("Item Original", "Descrição Original", tipo.Id, new Preco(10.0m));
 
             _mockItemRepository.Setup(repo => repo.ObterPorIdAsync(dto.Id)).ReturnsAsync(existente);
             _mockItemRepository.Setup(repo => repo.ObterPorNomeAsync(dto.Nome)).ReturnsAsync(existente);

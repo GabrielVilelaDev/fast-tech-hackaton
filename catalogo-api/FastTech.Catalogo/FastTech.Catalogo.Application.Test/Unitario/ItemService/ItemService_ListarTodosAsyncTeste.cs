@@ -31,8 +31,8 @@ namespace FastTech.Catalogo.Application.Test.Unitario.ItemService
             // Arrange
             var itens = new List<Item>
             {
-                new("Item 1", "Descrição 1", new TipoRefeicao("Tipo 1"), new Preco(10.0m)),
-                new("Item 2", "Descrição 2", new TipoRefeicao("Tipo 2"), new Preco(20.0m))
+                new("Item 1", "Descrição 1", new TipoRefeicao("Tipo 1").Id, new Preco(10.0m)),
+                new("Item 2", "Descrição 2", new TipoRefeicao("Tipo 2").Id, new Preco(20.0m))
             };
 
             _mockItemRepository.Setup(repo => repo.ListarTodosAsync()).ReturnsAsync(itens);

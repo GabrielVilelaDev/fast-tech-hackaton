@@ -12,6 +12,7 @@ namespace FastTech.Catalogo.Domain.Interfaces
     {
         Task<IEnumerable<T>> ListarTodosAsync();
         Task<IEnumerable<T>> ListarAsync(Expression<Func<T, bool>>? filtro = null);
+        Task<T?> ObterAsync(Expression<Func<T, bool>> filtro);
         Task<bool> ExisteAsync(Expression<Func<T, bool>> filtro);
         Task AdicionarAsync(T entidade);
         void Atualizar(T entidade);

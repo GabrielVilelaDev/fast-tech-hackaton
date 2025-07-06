@@ -30,7 +30,7 @@ namespace FastTech.Catalogo.Application.Test.Unitario.ItemService
         {
             // Arrange
             var itemId = Guid.NewGuid();
-            var item = new Item("Item Teste", "Descrição Teste", new TipoRefeicao("Tipo Teste"), new Preco(10.0m));
+            var item = new Item("Item Teste", "Descrição Teste", new TipoRefeicao("Tipo Teste").Id, new Preco(10.0m));
             _mockItemRepository.Setup(repo => repo.ObterPorIdAsync(itemId)).ReturnsAsync(item);
 
             // Act

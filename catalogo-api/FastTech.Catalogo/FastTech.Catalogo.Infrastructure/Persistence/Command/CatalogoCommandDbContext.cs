@@ -21,5 +21,18 @@ namespace FastTech.Catalogo.Infrastructure.Persistence.Command
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogoCommandDbContext).Assembly);
         }
+
+        public async Task SeedAsync()
+        {
+            IEnumerable<string> refeicoesIniciais = ["Lanche", "Bebida"];
+            foreach(var refeicao in refeicoesIniciais)
+            {
+                if (TiposRefeicao.Any(t => t.Nome.ToLower().Equals(refeicao.ToLower())))
+                    continue;
+
+                await TiposRefeicao.AddAsync(new TipoRefeicao(refeicao));
+            }
+            await SaveChangesAsync();
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FastTech.Catalogo.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/tipo-refeicao")]
     public class TipoRefeicaoController : ControllerBase
     {
         private readonly ITipoRefeicaoService _tipoService;
@@ -22,7 +22,7 @@ namespace FastTech.Catalogo.Api.Controllers
             return Ok(tipos);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<TipoRefeicao>> GetPorId(Guid id)
         {
             var tipo = await _tipoService.ObterPorIdAsync(id);

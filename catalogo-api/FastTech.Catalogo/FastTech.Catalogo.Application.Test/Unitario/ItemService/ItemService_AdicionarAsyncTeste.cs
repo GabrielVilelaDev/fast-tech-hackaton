@@ -72,7 +72,7 @@ namespace FastTech.Catalogo.Application.Test.Unitario.ItemService
         {
             // Arrange
             var tipo = new TipoRefeicao("Tipo Teste");
-            var itemDuplicado = new Item("Item Duplicado", "Descrição Teste", tipo, new Preco(10.0m));
+            var itemDuplicado = new Item("Item Duplicado", "Descrição Teste", tipo.Id, new Preco(10.0m));
             var dto = new ItemInputDto
             {
                 Nome = "Item Duplicado",

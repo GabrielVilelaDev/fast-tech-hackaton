@@ -19,15 +19,16 @@ namespace FastTech.Catalogo.Domain.Entities
         public DateTime? DataEdicao { get; private set; }
         public DateTime? DataExclusao { get; private set; }
 
-        public Item(string nome, string descricao, TipoRefeicao tipoRefeicao, Preco preco)
+        public Item() { }
+        public Item(string nome, string descricao, Guid idTipo, Preco preco)
         {
-            ValidarDados(nome, descricao, tipoRefeicao, preco);
+            ValidarDados(nome, descricao, idTipo, preco);
 
             Id = Guid.NewGuid();
             Nome = nome;
             Descricao = descricao;
-            TipoRefeicao = tipoRefeicao;
-            TipoRefeicaoId = tipoRefeicao.Id;
+            TipoRefeicao = null!;
+            TipoRefeicaoId = idTipo;
             Preco = preco;
             Cardapios = [];
             DataCriacao = DateTime.UtcNow;
@@ -35,14 +36,14 @@ namespace FastTech.Catalogo.Domain.Entities
             DataExclusao = null;
         }
 
-        public void Atualizar(string nome, string descricao, TipoRefeicao tipoRefeicao, Preco preco)
+        public void Atualizar(string nome, string descricao, Guid idTipo, Preco preco)
         {
-            ValidarDados(nome, descricao, tipoRefeicao, preco);
+            ValidarDados(nome, descricao, idTipo, preco);
 
             Nome = nome;
             Descricao = descricao;
-            TipoRefeicao = tipoRefeicao;
-            TipoRefeicaoId = tipoRefeicao.Id;
+            TipoRefeicao = null!;
+            TipoRefeicaoId = idTipo;
             Preco = preco;
             DataEdicao = DateTime.UtcNow;
         }
@@ -72,7 +73,7 @@ namespace FastTech.Catalogo.Domain.Entities
             Cardapios.Remove(cardapio);
         }
 
-        private static void ValidarDados(string nome, string descricao, TipoRefeicao tipo, Preco preco)
+        private static void ValidarDados(string nome, string descricao, Guid idTipo, Preco preco)
         {
             if (string.IsNullOrWhiteSpace(nome))
                 throw new ArgumentException("Nome é obrigatório.");
@@ -83,8 +84,8 @@ namespace FastTech.Catalogo.Domain.Entities
             if (descricao.Length > 500)
                 throw new ArgumentException("Descrição deve ter no máximo 500 caracteres.");
 
-            if (tipo is null)
-                throw new ArgumentNullException(nameof(tipo), "Tipo de refeição é obrigatório.");
+            if (idTipo == Guid.Empty)
+                throw new ArgumentNullException(nameof(idTipo), "Tipo de refeição é obrigatório.");
 
             if (preco is null)
                 throw new ArgumentNullException(nameof(preco), "Preço é obrigatório.");

@@ -40,12 +40,13 @@ namespace FastTech.Catalogo.Application.Services
             if (itens.Count() != cardapio.ItensIds.Count())
                 throw new ArgumentException("Alguns itens não existem ou não estão disponíveis.");
 
-            entidade.AdicionarItens(itens);
+            entidade.AssociarIdItens(itens.Select(i => i.Id));
 
             if(await _cardapioRepository.ExisteAsync(c => c.Nome == cardapio.Nome && c.DataExclusao == null))
                 throw new InvalidOperationException("Já existe um cardápio com esse nome.");
 
             await _cardapioRepository.AdicionarAsync(entidade);
+            await _cardapioRepository.SalvarAlteracoesAsync();
 
             return entidade.Id;
         }
@@ -68,9 +69,10 @@ namespace FastTech.Catalogo.Application.Services
                 throw new ArgumentException("Alguns itens não existem ou não estão disponíveis.");
 
             entidade.Atualizar(cardapio.Nome, cardapio.Descricao);
-            entidade.AtualizarItens(itens);
+            entidade.AssociarIdItens(itens.Select(i => i.Id));
 
-             _cardapioRepository.Atualizar(entidade);
+            _cardapioRepository.Atualizar(entidade);
+            await _cardapioRepository.SalvarAlteracoesAsync();
         }
 
         public async Task RemoverAsync(Guid id)
@@ -82,7 +84,8 @@ namespace FastTech.Catalogo.Application.Services
 
             entidade.Excluir();
 
-            _cardapioRepository.Atualizar(entidade);
+            _cardapioRepository.Remover(entidade);
+            await _cardapioRepository.SalvarAlteracoesAsync();
         }
 
         private static IEnumerable<CardapioOutputDto> MapearCardapiosParaOutputs(IEnumerable<Cardapio> cardapios)
@@ -114,6 +117,7 @@ namespace FastTech.Catalogo.Application.Services
                 Nome = item.Nome,
                 Descricao = item.Descricao,
                 TipoRefeicaoNome = item.TipoRefeicao?.Nome ?? string.Empty,
+                TipoRefeicaoId = item.TipoRefeicaoId,
                 Valor = item.Preco.Valor
             };
         }

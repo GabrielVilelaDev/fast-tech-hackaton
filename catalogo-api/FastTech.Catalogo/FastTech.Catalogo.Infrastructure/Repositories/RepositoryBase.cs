@@ -32,7 +32,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : EntidadeB
         var query = _querySet.AsNoTracking();
 
         if (filtro != null)
-            query = query.Where(filtro);
+            query = _querySet.Where(filtro);
 
         return await query.ToListAsync();
     }

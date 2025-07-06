@@ -14,8 +14,11 @@ namespace FastTech.Catalogo.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+                ?? throw new InvalidOperationException("Nenhuma string de conexão encontrada para serviço de catalogo.");
+
             services.AddDbContext<CatalogoCommandDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
@@ -24,6 +27,7 @@ namespace FastTech.Catalogo.Infrastructure
 
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<ITipoRefeicaoRepository, TipoRefeicaoRepository>();
+            services.AddScoped<ICardapioRepository, CardapioRepository>();
 
             return services;
         }
