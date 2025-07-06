@@ -32,7 +32,7 @@ namespace FastTech.Catalogo.Application.Test.Unitario.ItemService
             var tipoId = Guid.NewGuid();
             var itens = new List<Item>
             {
-                new("Item 1", "Descrição 1", new TipoRefeicao("Tipo 1"), new Preco(10.0m))
+                new("Item 1", "Descrição 1", new TipoRefeicao("Tipo 1").Id, new Preco(10.0m))
             };
             _mockItemRepository.Setup(repo => repo.ListarPorTipoAsync(tipoId)).ReturnsAsync(itens);
 

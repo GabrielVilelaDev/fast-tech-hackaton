@@ -16,6 +16,7 @@ namespace FastTech.Catalogo.Domain.Entities
         public IReadOnlyCollection<Item> Itens => _itens.AsReadOnly();
         private readonly List<Item> _itens = [];
 
+        public TipoRefeicao() { }
         public TipoRefeicao(string nome)
         {
             Validar(nome);

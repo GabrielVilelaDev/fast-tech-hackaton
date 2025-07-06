@@ -1,0 +1,24 @@
+# SDK do .NET 8 (precisa do EF CLI)
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copia os projetos necessários
+COPY ["FastTech.Catalogo.Api/FastTech.Catalogo.Api.csproj", "FastTech.Catalogo.Api/"]
+COPY ["FastTech.Catalogo.Application/FastTech.Catalogo.Application.csproj", "FastTech.Catalogo.Application/"]
+COPY ["FastTech.Catalogo.Domain/FastTech.Catalogo.Domain.csproj", "FastTech.Catalogo.Domain/"]
+COPY ["FastTech.Catalogo.Infrastructure/FastTech.Catalogo.Infrastructure.csproj", "FastTech.Catalogo.Infrastructure/"]
+
+# Restaura dependências
+RUN dotnet restore "FastTech.Catalogo.Infrastructure/FastTech.Catalogo.Infrastructure.csproj"
+
+# Copia tudo
+COPY . .
+
+# Define o diretório de trabalho como a Infrastructure (onde está o DbContext)
+WORKDIR "/src/FastTech.Catalogo.Infrastructure"
+
+# Roda o update da database, informando explicitamente:
+# - O DbContext
+# - O Startup Project
+# - Sem rebuild (porque já foi restaurado e o código está junto)
+ENTRYPOINT ["dotnet", "ef", "database", "update", "--context", "CatalogoCommandDbContext", "--startup-project", "../FastTech.Catalogo.Api", "--no-build"]

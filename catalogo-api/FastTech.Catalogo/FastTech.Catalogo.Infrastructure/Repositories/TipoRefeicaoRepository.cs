@@ -19,13 +19,14 @@ public class TipoRefeicaoRepository : RepositoryBase<TipoRefeicao>, ITipoRefeica
         : base(commandContext, queryContext) { }
 
     public override async Task<IEnumerable<TipoRefeicao>> ListarTodosAsync()
-        => await _querySet.AsNoTracking().Where(t => t.DataExclusao == null).ToListAsync();
+     => await _querySet.AsNoTracking()
+        .Where(t => t.DataExclusao == null).ToListAsync();
 
     public async Task<TipoRefeicao?> ObterPorIdAsync(Guid id)
-        => await _querySet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id && t.DataExclusao == null);
+        => await _querySet.AsNoTracking()
+        .FirstOrDefaultAsync(t => t.Id == id && t.DataExclusao == null);
 
     public async Task<TipoRefeicao?> ObterPorNomeAsync(string nome)
-        => await _querySet
-        .AsNoTracking()
-        .FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase) && t.DataExclusao == null);
+        => await _querySet.AsNoTracking()
+        .FirstOrDefaultAsync(t => t.Nome.ToLower() == nome.ToLower() && t.DataExclusao == null);
 }

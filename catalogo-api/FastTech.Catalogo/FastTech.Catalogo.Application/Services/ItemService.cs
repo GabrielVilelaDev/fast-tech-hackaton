@@ -15,11 +15,13 @@ namespace FastTech.Catalogo.Application.Services
     {
         private readonly IItemRepository _itemRepository;
         private readonly ITipoRefeicaoRepository _tipoRefeicaoRepository;
+        private readonly IEventPublisher _eventPublisher;
 
-        public ItemService(IItemRepository itemRepository, ITipoRefeicaoRepository tipoRefeicaoRepository)
+        public ItemService(IItemRepository itemRepository, ITipoRefeicaoRepository tipoRefeicaoRepository, IEventPublisher eventPublisher)
         {
             _itemRepository = itemRepository;
             _tipoRefeicaoRepository = tipoRefeicaoRepository;
+            _eventPublisher = eventPublisher;
         }
 
         public async Task<ItemOutputDto?> ObterPorIdAsync(Guid id)
@@ -50,9 +52,18 @@ namespace FastTech.Catalogo.Application.Services
             if(itemMesmoNome is not null)
                 throw new InvalidOperationException("Já existe um item com o mesmo nome.");
 
-            var item = new Item(dto.Nome, dto.Descricao, tipo, new Preco(dto.Valor));
+            var item = new Item(dto.Nome, dto.Descricao, tipo.Id, new Preco(dto.Valor));
             await _itemRepository.AdicionarAsync(item);
             await _itemRepository.SalvarAlteracoesAsync();
+
+            await _eventPublisher.PublishAsync("catalogo.item", "item.updated", new ItemCreatedEvent
+            {
+                Id = item.Id,
+                Nome = item.Nome,
+                Descricao = item.Descricao,
+                TipoRefeicaoId = item.TipoRefeicaoId,
+                Valor = item.Preco.Valor
+            });
 
             return item.Id;
         }
@@ -71,8 +82,18 @@ namespace FastTech.Catalogo.Application.Services
             if (itemMesmoNome is not null && itemMesmoNome.Id != dto.Id)
                 throw new InvalidOperationException("Já existe um item com o mesmo nome.");
 
-            existente.Atualizar(dto.Nome, dto.Descricao, tipo, new Preco(dto.Valor));
+            existente.Atualizar(dto.Nome, dto.Descricao, tipo.Id, new Preco(dto.Valor));
             _itemRepository.Atualizar(existente);
+
+            await _eventPublisher.PublishAsync("catalogo.item", "item.updated", new ItemUpdatedEvent
+            {
+                Id = existente.Id,
+                Nome = existente.Nome,
+                Descricao = existente.Descricao,
+                TipoRefeicaoId = existente.TipoRefeicaoId,
+                Valor = existente.Preco.Valor
+            });
+
             await _itemRepository.SalvarAlteracoesAsync();
         }
 
@@ -102,6 +123,7 @@ namespace FastTech.Catalogo.Application.Services
                 Nome = item.Nome,
                 Descricao = item.Descricao,
                 TipoRefeicaoNome = item.TipoRefeicao?.Nome ?? string.Empty,
+                TipoRefeicaoId= item.TipoRefeicaoId,
                 Valor = item.Preco.Valor
             };
         }

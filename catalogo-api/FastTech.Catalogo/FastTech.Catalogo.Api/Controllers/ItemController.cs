@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FastTech.Catalogo.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/item")]
     public class ItemController : ControllerBase
     {
         private readonly IItemService _itemService;
@@ -41,11 +41,11 @@ namespace FastTech.Catalogo.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] ItemInputDto item)
         {
-            var itemCriadoId = await _itemService.AdicionarAsync(item);
-            return CreatedAtAction(nameof(GetPorId), new { itemCriadoId });
+            var id = await _itemService.AdicionarAsync(item);
+            return CreatedAtAction(nameof(GetPorId), new { id }, null);
         }
 
-        [HttpPut("{id:guid}")]
+        [HttpPatch("{id:guid}")]
         public async Task<ActionResult> Put([FromBody] ItemUpdateDto item)
         {
             await _itemService.AtualizarAsync(item);

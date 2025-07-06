@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FastTech.Catalogo.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/cardapio")]
     public class CardapioController : ControllerBase
     {
         private readonly ICardapioService _cardapioService;
@@ -42,10 +42,10 @@ namespace FastTech.Catalogo.API.Controllers
                 return BadRequest(ModelState);
 
             var id = await _cardapioService.AdicionarAsync(dto);
-            return CreatedAtAction(nameof(ObterPorId), new { id });
+            return CreatedAtAction(nameof(ObterPorId), new { id }, null);
         }
 
-        [HttpPut("{id:guid}")]
+        [HttpPatch("{id:guid}")]
         public async Task<IActionResult> Atualizar(Guid id, [FromBody] CardapioUpdateDto dto)
         {
             if (!ModelState.IsValid)

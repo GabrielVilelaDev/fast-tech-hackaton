@@ -40,5 +40,5 @@ public class ItemRepository : RepositoryBase<Item>, IItemRepository
 
     public async Task<Item?> ObterPorNomeAsync(string nome)
         => await _querySet.AsNoTracking()
-            .FirstOrDefaultAsync(t => t.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase) && t.DataExclusao == null);
+            .FirstOrDefaultAsync(t => t.Nome.ToLower().Contains(nome.ToLower()) && t.DataExclusao == null);
 }

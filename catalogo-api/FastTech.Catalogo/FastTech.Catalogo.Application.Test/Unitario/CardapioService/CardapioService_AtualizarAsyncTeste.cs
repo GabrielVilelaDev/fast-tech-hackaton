@@ -25,7 +25,7 @@ public class CardapioService_AtualizarAsyncTeste
     {
         // Arrange
         var item = new Item("Nome", "Descricao", new("Tipo"), new(20));
-        var cardapioExistente = new Cardapio("Cardapio Antigo", "Descricao Antiga", [item], DateTime.UtcNow);
+        var cardapioExistente = new Cardapio("Cardapio Antigo", "Descricao Antiga", DateTime.UtcNow);
         var atualizarDto = new CardapioUpdateDto
         {
             Id = cardapioExistente.Id,
