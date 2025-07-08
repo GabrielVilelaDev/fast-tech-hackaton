@@ -1,4 +1,6 @@
-﻿using FastTech.Catalogo.Domain.Interfaces;
+﻿using FastTech.Catalogo.Application.Interfaces;
+using FastTech.Catalogo.Domain.Interfaces;
+using FastTech.Catalogo.Infrastructure.Messaging.Publisher;
 using FastTech.Catalogo.Infrastructure.Persistence.Command;
 using FastTech.Catalogo.Infrastructure.Persistence.Query;
 using FastTech.Catalogo.Infrastructure.Repositories;
@@ -28,6 +30,7 @@ namespace FastTech.Catalogo.Infrastructure
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<ITipoRefeicaoRepository, TipoRefeicaoRepository>();
             services.AddScoped<ICardapioRepository, CardapioRepository>();
+            services.AddScoped<IEventPublisher, RabbitMqEventPublisher>();
 
             return services;
         }
