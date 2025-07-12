@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogo-mysql-svc
+  labels:
+    app: catalogo-mysql-svc
+spec:
+  ports:
+    - port: 3306
+      name: catalogo-mysql
+  clusterIP: None
+  selector:
+    app: catalogo-mysql-pod
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: catalogo-mysql-statefulset
+spec:
+  serviceName: catalogo-mysql-svc
+  replicas: 1
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app: catalogo-mysql-pod
+  template:
+    metadata:
+      labels:
+        app: catalogo-mysql-pod
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: catalogo-mysql-pod
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DB_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: DB_DATABASE
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "localhost"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          volumeMounts:
+            - name: catalogo-mysql-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: catalogo-mysql-storage
+          persistentVolumeClaim:
+            claimName: catalogo-mysql-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: catalogo-mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
