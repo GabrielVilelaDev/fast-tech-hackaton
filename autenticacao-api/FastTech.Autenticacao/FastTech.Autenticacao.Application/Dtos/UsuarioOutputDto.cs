@@ -12,5 +12,6 @@ namespace FastTech.Autenticacao.Application.Dtos
         public string Nome { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Perfil { get; set; } = null!;
+        public string Token { get; set; } = null!;
     }
 }

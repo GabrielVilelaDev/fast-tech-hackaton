@@ -10,6 +10,8 @@ namespace FastTech.Autenticacao.Domain.ValueObjects
     {
         public string Endereco { get; private set; }
 
+        public Email() { }
+
         public Email(string endereco)
         {
             if (string.IsNullOrWhiteSpace(endereco) || !endereco.Contains('@'))

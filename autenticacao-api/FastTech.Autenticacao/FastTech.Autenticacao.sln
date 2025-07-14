@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTech.Autenticacao.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTech.Autenticacao.Domain", "FastTech.Autenticacao.Domain\FastTech.Autenticacao.Domain.csproj", "{0B733308-A9E6-4A2F-B4FA-71C1B7338A92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTech.Autenticacao.Infraestructure", "FastTech.Autenticacao.Infraestructure\FastTech.Autenticacao.Infraestructure.csproj", "{112BF206-6120-4BDE-A212-04CECA7C0A88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTech.Autenticacao.Infrastructure", "FastTech.Autenticacao.Infrastructure\FastTech.Autenticacao.Infrastructure.csproj", "{112BF206-6120-4BDE-A212-04CECA7C0A88}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTech.Autenticacao.Application.Test", "FastTech.Autenticacao.Application.Test\FastTech.Autenticacao.Application.Test.csproj", "{EB55BD3C-3F17-4401-8B08-6C1634F0490E}"
 EndProject

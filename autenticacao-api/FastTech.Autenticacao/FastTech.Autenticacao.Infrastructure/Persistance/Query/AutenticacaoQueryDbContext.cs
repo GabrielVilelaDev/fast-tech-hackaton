@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastTech.Autenticacao.Infraestructure.Persistance.Query
+namespace FastTech.Autenticacao.Infrastructure.Persistance.Query
 {
     public class AutenticacaoQueryDbContext : DbContext
     {

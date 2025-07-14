@@ -1,7 +1,7 @@
 ﻿using FastTech.Autenticacao.Domain.Entities;
 using FastTech.Autenticacao.Domain.Interfaces;
-using FastTech.Autenticacao.Infraestructure.Persistance.Command;
-using FastTech.Autenticacao.Infraestructure.Persistance.Query;
+using FastTech.Autenticacao.Infrastructure.Persistance.Command;
+using FastTech.Autenticacao.Infrastructure.Persistance.Query;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastTech.Autenticacao.Infraestructure.Repositories
+namespace FastTech.Autenticacao.Infrastructure.Repositories
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : EntidadeBase
     {

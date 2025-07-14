@@ -1,11 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using FastTech.Autenticacao.Application.Interfaces;
 using FastTech.Autenticacao.Application.Services;
 using FastTech.Autenticacao.Domain.Entities;
 using FastTech.Autenticacao.Domain.Enums;
 using FastTech.Autenticacao.Domain.Interfaces;
 using FastTech.Autenticacao.Domain.ValueObjects;
 using Moq;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace FastTech.Autenticacao.Application.Test.Unitario.UsuarioService;
@@ -15,11 +16,13 @@ public class UsuarioService_InativarAsyncTeste
 {
     private readonly Mock<IUsuarioRepository> mockRepository;
     private readonly Services.UsuarioService usuarioService;
+    private readonly Mock<ITokenService> mockTokenService;
 
     public UsuarioService_InativarAsyncTeste()
     {
         mockRepository = new Mock<IUsuarioRepository>();
-        usuarioService = new Services.UsuarioService(mockRepository.Object);
+        mockTokenService = new Mock<ITokenService>();
+        usuarioService = new Services.UsuarioService(mockRepository.Object, mockTokenService.Object);
     }
 
     [Fact]
@@ -27,7 +30,7 @@ public class UsuarioService_InativarAsyncTeste
     {
         // Arrange
         var id = Guid.NewGuid();
-        var usuario = new Usuario("Gabriel", new Email("gabriel@email.com"), new Senha("senha"), PerfilUsuario.Funcionario);
+        var usuario = new Usuario("Gabriel", new Email("gabriel@email.com"), new Senha("senhaValida"), PerfilUsuario.Funcionario);
 
         mockRepository.Setup(r => r.ObterPorIdAsync(id)).ReturnsAsync(usuario);
         mockRepository.Setup(r => r.SalvarAlteracoesAsync()).Returns(Task.CompletedTask);
