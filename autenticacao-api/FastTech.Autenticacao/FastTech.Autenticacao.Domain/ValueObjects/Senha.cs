@@ -7,6 +7,8 @@ namespace FastTech.Autenticacao.Domain.ValueObjects
     {
         public string Hash { get; private set; }
 
+        public Senha() { }
+
         public Senha(string senhaTextoPlano)
         {
             if (string.IsNullOrWhiteSpace(senhaTextoPlano) || senhaTextoPlano.Length < 6)

@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastTech.Autenticacao.Infraestructure.Persistance.Command
+namespace FastTech.Autenticacao.Infrastructure.Persistance.Command
 {
     public class AutenticacaoCommandDbContext : DbContext
     {

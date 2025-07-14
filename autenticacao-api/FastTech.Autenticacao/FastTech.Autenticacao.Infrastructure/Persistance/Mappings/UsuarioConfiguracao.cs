@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using FastTech.Autenticacao.Domain.Entities;
 
-namespace FastTech.Autenticacao.Infraestructure.Persistance.Mappings
+namespace FastTech.Autenticacao.Infrastructure.Persistance.Mappings
 {
     public class UsuarioConfiguracao : IEntityTypeConfiguration<Usuario>
     {
@@ -22,23 +22,23 @@ namespace FastTech.Autenticacao.Infraestructure.Persistance.Mappings
             builder.Property(u => u.Ativo)
                 .IsRequired();
 
-            builder.Property(u => u.CriadoEm)
+            builder.Property(u => u.DataCriacao)
                 .IsRequired();
 
             builder.OwnsOne(u => u.Email, email =>
             {
                 email.Property(e => e.Endereco)
-                    .IsRequired()
+                    .HasColumnName("Email")
                     .HasMaxLength(150)
-                    .HasColumnName("Email");
+                    .IsRequired();
             });
 
             builder.OwnsOne(u => u.Senha, senha =>
             {
                 senha.Property(s => s.Hash)
-                    .IsRequired()
+                    .HasColumnName("SenhaHash")
                     .HasMaxLength(512)
-                    .HasColumnName("SenhaHash");
+                    .IsRequired();
             });
 
             builder.OwnsOne(u => u.Cpf, cpf =>
@@ -48,9 +48,6 @@ namespace FastTech.Autenticacao.Infraestructure.Persistance.Mappings
                     .HasColumnName("Cpf")
                     .IsRequired(false);
             });
-
-            builder.HasIndex("Email").IsUnique();
-            builder.HasIndex("Cpf").IsUnique();
         }
     }
 }

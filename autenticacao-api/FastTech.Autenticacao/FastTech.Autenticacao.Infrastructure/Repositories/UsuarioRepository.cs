@@ -1,7 +1,7 @@
 ﻿using FastTech.Autenticacao.Domain.Entities;
 using FastTech.Autenticacao.Domain.Interfaces;
-using FastTech.Autenticacao.Infraestructure.Persistance.Command;
-using FastTech.Autenticacao.Infraestructure.Persistance.Query;
+using FastTech.Autenticacao.Infrastructure.Persistance.Command;
+using FastTech.Autenticacao.Infrastructure.Persistance.Query;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastTech.Autenticacao.Infraestructure.Repositories
+namespace FastTech.Autenticacao.Infrastructure.Repositories
 {
     public class UsuarioRepository : RepositoryBase<Usuario>, IUsuarioRepository
     {
@@ -27,7 +27,7 @@ namespace FastTech.Autenticacao.Infraestructure.Repositories
         {
             return await _querySet
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email.Endereco.Equals(email, StringComparison.CurrentCultureIgnoreCase));
+                .FirstOrDefaultAsync(u => u.Email.Endereco.ToLower().Equals(email.ToLower()));
         }
 
         public async Task<Usuario?> ObterPorCpfAsync(string cpf)
@@ -41,7 +41,7 @@ namespace FastTech.Autenticacao.Infraestructure.Repositories
         {
             return await _querySet
                 .AsNoTracking()
-                .AnyAsync(u => u.Email.Endereco.Equals(email, StringComparison.CurrentCultureIgnoreCase));
+                .AnyAsync(u => u.Email.Endereco.ToLower().Equals(email.ToLower()));
         }
 
         public async Task<bool> ExisteComCpfAsync(string cpf)
