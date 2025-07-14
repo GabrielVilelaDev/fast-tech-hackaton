@@ -1,0 +1,64 @@
+name: CI - FastTech Testes e Build Local
+
+# 👉 Para executar automaticamente em push/pull_request na branch main, descomente abaixo:
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+# 👉 Execução manual via GitHub Actions
+on:
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout do código
+      uses: actions/checkout@v3
+
+    - name: 🧰 Setup do .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 📦 Restaurar dependências
+      run: dotnet restore
+
+    - name: 🧪 Executar testes unitários
+      run: dotnet test --no-build --configuration Release --filter "Category=Unit"
+
+    - name: 🐳 Setup Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: 🏗️ Build da imagem `catalogo-api`
+      run: |
+        docker build -t fasttech/catalogo-api:test \
+          -f ./catalogo-api/FastTech.Catalogo/dockerfile \
+          ./catalogo-api/FastTech.Catalogo
+
+    - name: 🏗️ Build da imagem `auth-api`
+      run: |
+        docker build -t fasttech/auth-api:test \
+          -f ./autenticacao-api/FastTech.Autenticacao/dockerfile \
+          ./autenticacao-api/FastTech.Autenticacao
+
+    # 👉 Para habilitar push no Docker Hub, descomente abaixo e adicione os secrets:
+    #
+    # - name: 🔐 Login no Docker Hub
+    #   uses: docker/login-action@v3
+    #   with:
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #
+    # - name: 🚀 Push da imagem `catalogo-api`
+    #   run: |
+    #     docker tag fasttech/catalogo-api:test yourdockeruser/catalogo-api:latest
+    #     docker push yourdockeruser/catalogo-api:latest
+    #
+    # - name: 🚀 Push da imagem `auth-api`
+    #   run: |
+    #     docker tag fasttech/auth-api:test yourdockeruser/auth-api:latest
+    #     docker push yourdockeruser/auth-api:latest
