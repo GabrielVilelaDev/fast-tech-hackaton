@@ -14,8 +14,11 @@ namespace FastTech.Pedido.Infraestructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+                ?? throw new InvalidOperationException("Nenhuma string de conexão encontrada para serviço de catalogo.");
+
             services.AddDbContext<PedidoCommandDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 

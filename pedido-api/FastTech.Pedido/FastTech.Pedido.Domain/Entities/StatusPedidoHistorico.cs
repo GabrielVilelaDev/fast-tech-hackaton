@@ -14,6 +14,7 @@ namespace FastTech.Pedido.Domain.Entities
         public Guid? IdFuncionarioResponsavel { get; private set; }
         public string? Observacao { get; private set; }
 
+        public StatusPedidoHistorico() { }
         public StatusPedidoHistorico(StatusPedido status, Guid? idFuncionario, string? observacao)
         {
             Id = Guid.NewGuid();

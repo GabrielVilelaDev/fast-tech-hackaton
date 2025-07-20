@@ -13,11 +13,11 @@ namespace FastTech.Pedido.Domain.Entities
         public string CodigoPedido { get; private set; }
         public Guid IdCliente { get; private set; }
         public ClientePedido Cliente { get; private set; }
-        public DateTime DataHoraCriacao { get; private set; }
         public FormaEntrega FormaEntrega { get; private set; }
         public StatusPedido Status { get; private set; }
         public decimal ValorTotal => Itens.Sum(i => i.Subtotal);
         public string? JustificativaCancelamento { get; private set; }
+        public DateTime DataHoraCriacao { get; private set; }
         public DateTime? DataHoraCancelamento { get; private set; }
 
         private readonly List<ItemPedido> _itens = [];
@@ -26,6 +26,7 @@ namespace FastTech.Pedido.Domain.Entities
         private readonly List<StatusPedidoHistorico> _historico = [];
         public IReadOnlyCollection<StatusPedidoHistorico> Historico => _historico.AsReadOnly();
 
+        public Pedido() { }
         public Pedido(Guid idCliente, ClientePedido cliente, FormaEntrega formaEntrega)
         {
             Id = Guid.NewGuid();
@@ -35,7 +36,7 @@ namespace FastTech.Pedido.Domain.Entities
             DataHoraCriacao = DateTime.UtcNow;
             FormaEntrega = formaEntrega;
             Status = StatusPedido.Criado;
-            RegistrarStatus(StatusPedido.Criado);
+            RegistrarHistorico(StatusPedido.Criado);
         }
 
         public void AdicionarItem(Guid idItemCardapio, string nome, decimal precoUnitario, int quantidade)
@@ -55,7 +56,7 @@ namespace FastTech.Pedido.Domain.Entities
             JustificativaCancelamento = justificativa;
             DataHoraCancelamento = DateTime.UtcNow;
             Status = StatusPedido.Cancelado;
-            RegistrarStatus(StatusPedido.Cancelado);
+            RegistrarHistorico(StatusPedido.Cancelado);
         }
 
         public void AtualizarStatus(StatusPedido novoStatus, Guid? idFuncionario, string? observacao = null)
@@ -64,10 +65,10 @@ namespace FastTech.Pedido.Domain.Entities
                 throw new InvalidOperationException("Não é possível atualizar um pedido finalizado.");
 
             Status = novoStatus;
-            RegistrarStatus(novoStatus, idFuncionario, observacao);
+            RegistrarHistorico(novoStatus, idFuncionario, observacao);
         }
 
-        private void RegistrarStatus(StatusPedido status, Guid? idFuncionario = null, string? observacao = null)
+        private void RegistrarHistorico(StatusPedido status, Guid? idFuncionario = null, string? observacao = null)
         {
             _historico.Add(new StatusPedidoHistorico(status, idFuncionario, observacao));
         }

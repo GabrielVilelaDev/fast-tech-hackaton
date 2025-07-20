@@ -17,7 +17,7 @@ namespace FastTech.Pedido.Infraestructure.Persistance.Mappings
 
             builder.HasKey(i => i.Id);
 
-            builder.Property(i => i.IdItemCardapio)
+            builder.Property(i => i.IdItem)
                 .IsRequired();
 
             builder.Property(i => i.Nome)
