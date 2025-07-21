@@ -1,9 +1,13 @@
 ﻿using FastTech.Catalogo.Application.Interfaces;
 using FastTech.Catalogo.Domain.Interfaces;
+using FastTech.Catalogo.Domain.Interfaces.Command;
+using FastTech.Catalogo.Domain.Interfaces.Query;
 using FastTech.Catalogo.Infrastructure.Messaging.Publisher;
 using FastTech.Catalogo.Infrastructure.Persistence.Command;
 using FastTech.Catalogo.Infrastructure.Persistence.Query;
 using FastTech.Catalogo.Infrastructure.Repositories;
+using FastTech.Catalogo.Infrastructure.Repositories.Command;
+using FastTech.Catalogo.Infrastructure.Repositories.Query;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -32,9 +36,15 @@ namespace FastTech.Catalogo.Infrastructure
             services.AddDbContext<CatalogoQueryDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            services.AddScoped<IItemRepository, ItemRepository>();
-            services.AddScoped<ITipoRefeicaoRepository, TipoRefeicaoRepository>();
-            services.AddScoped<ICardapioRepository, CardapioRepository>();
+            services.AddScoped<ITipoRefeicaoCommandRepository, TipoRefeicaoCommandRepository>();
+            services.AddScoped<ITipoRefeicaoQueryRepository, TipoRefeicaoQueryRepository>();
+
+            services.AddScoped<IItemCommandRepository, ItemCommandRepository>();
+            services.AddScoped<IItemQueryRepository, ItemQueryRepository>();
+
+            services.AddScoped<ICardapioCommandRepository, CardapioCommandRepository>();
+            services.AddScoped<ICardapioQueryRepository, CardapioQueryRepository>();
+
             services.AddScoped<IEventPublisher, RabbitMqEventPublisher>();
 
             return services;

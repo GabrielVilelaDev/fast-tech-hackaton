@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FastTech.Catalogo.Domain.Interfaces
+namespace FastTech.Catalogo.Domain.Interfaces.Query
 {
-    public interface ITipoRefeicaoRepository : IRepositoryBase<TipoRefeicao>
+    public interface ITipoRefeicaoQueryRepository : IQueryRepository<TipoRefeicao>
     {
-        Task<TipoRefeicao?> ObterPorIdAsync(Guid id);
         Task<TipoRefeicao?> ObterPorNomeAsync(string nome);
     }
 }
