@@ -16,12 +16,19 @@ namespace FastTech.Pedido.Application.Services
         private readonly IPedidoCommandRepository _pedidoCommand;
         private readonly IPedidoQueryRepository _pedidoQuery;
         private readonly IStatusPedidoHistoricoCommandRepository _statusPedidoHistoricoCommand;
+        private readonly IEventPublisher _eventPublisher;
 
-        public PedidoService(IPedidoCommandRepository pedidoCommand, IPedidoQueryRepository pedidoQuery, IStatusPedidoHistoricoCommandRepository statusPedidoHistoricoCommand)
+        public PedidoService(
+            IPedidoCommandRepository pedidoCommand
+            , IPedidoQueryRepository pedidoQuery
+            , IStatusPedidoHistoricoCommandRepository statusPedidoHistoricoCommand
+            , IEventPublisher eventPublisher
+            )
         {
             _pedidoCommand = pedidoCommand;
             _pedidoQuery = pedidoQuery;
             _statusPedidoHistoricoCommand = statusPedidoHistoricoCommand;
+            _eventPublisher = eventPublisher;
         }
 
         public async Task<Guid> CriarPedidoAsync(PedidoInputDto dto)
@@ -34,6 +41,22 @@ namespace FastTech.Pedido.Application.Services
 
             await _pedidoCommand.AdicionarAsync(pedido);
             await _pedidoCommand.SalvarAlteracoesAsync();
+
+            await _eventPublisher.PublishAsync("pedido.pedido", "pedido.created", new PedidoEventDtoCreated
+            {
+                Id = pedido.Id,
+                IdCliente = cliente.IdCliente,
+                NomeCliente = cliente.Nome,
+                EmailCliente = cliente.Email,
+                FormaEntrega = pedido.FormaEntrega,
+                Itens = pedido.Itens.Select(i => new ItemPedidoInputDto
+                {
+                    IdItemCardapio = i.Id,
+                    Nome = i.Nome,
+                    PrecoUnitario = i.PrecoUnitario,
+                    Quantidade = i.Quantidade
+                }).ToList()
+            });
 
             return pedido.Id;
         }

@@ -1,5 +1,7 @@
-﻿using FastTech.Pedido.Domain.Interfaces.Command;
+﻿using FastTech.Pedido.Application.Interfaces;
+using FastTech.Pedido.Domain.Interfaces.Command;
 using FastTech.Pedido.Domain.Interfaces.Query;
+using FastTech.Pedido.Infrastructure.Messaging.Publisher;
 using FastTech.Pedido.Infrastructure.Persistance.Command;
 using FastTech.Pedido.Infrastructure.Persistance.Query;
 using FastTech.Pedido.Infrastructure.Repositories.Command;
@@ -11,6 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +21,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace FastTech.Pedido.Infrastructure
 {
@@ -43,6 +45,8 @@ namespace FastTech.Pedido.Infrastructure
 
             services.AddScoped<IStatusPedidoHistoricoQueryRepository, StatusPedidoHistoricoQueryRepository>();
             services.AddScoped<IStatusPedidoHistoricoCommandRepository, StatusPedidoHistoricoCommandRepository>();
+
+            services.AddScoped<IEventPublisher, RabbitMqEventPublisher>();
 
             return services;
         }

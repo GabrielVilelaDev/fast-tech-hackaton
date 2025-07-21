@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using FastTech.Pedido.Application.Interfaces;
 using FastTech.Pedido.Application.Services;
 using FastTech.Pedido.Domain.Entities;
 using FastTech.Pedido.Domain.Enums;
@@ -7,6 +6,8 @@ using FastTech.Pedido.Domain.Interfaces.Command;
 using FastTech.Pedido.Domain.Interfaces.Query;
 using FastTech.Pedido.Domain.ValueObjects;
 using Moq;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace FastTech.Pedido.Application.Test.Unitario.PedidoService;
@@ -18,14 +19,17 @@ public class PedidoService_ObterPedidoCompletoAsyncTeste
     private readonly Mock<IPedidoQueryRepository> mockPedidoQuery;
     private readonly Mock<IStatusPedidoHistoricoCommandRepository> mockStatusHistoricoPedidoCommand;
     private readonly Services.PedidoService pedidoService;
+    private readonly Mock<IEventPublisher> mockEventPublisher;
+
 
     public PedidoService_ObterPedidoCompletoAsyncTeste()
     {
         mockPedidoCommand = new Mock<IPedidoCommandRepository>();
         mockPedidoQuery = new Mock<IPedidoQueryRepository>();
         mockStatusHistoricoPedidoCommand = new Mock<IStatusPedidoHistoricoCommandRepository>();
+        mockEventPublisher = new Mock<IEventPublisher>();
 
-        pedidoService = new Services.PedidoService(mockPedidoCommand.Object, mockPedidoQuery.Object, mockStatusHistoricoPedidoCommand.Object);
+        pedidoService = new Services.PedidoService(mockPedidoCommand.Object, mockPedidoQuery.Object, mockStatusHistoricoPedidoCommand.Object, mockEventPublisher.Object);
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 ﻿using FastTech.Autenticacao.Application.Interfaces;
 using FastTech.Autenticacao.Domain.Interfaces;
+using FastTech.Autenticacao.Infrastructure.Messaging.Publisher;
 using FastTech.Autenticacao.Infrastructure.Persistance.Command;
 using FastTech.Autenticacao.Infrastructure.Persistance.Query;
 using FastTech.Autenticacao.Infrastructure.Repositories;
@@ -34,6 +35,7 @@ namespace FastTech.Autenticacao.Infrastructure
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITokenService, JwtTokenService>();
+            services.AddScoped<IEventPublisher, RabbitMqEventPublisher>();
 
             return services;
         }
