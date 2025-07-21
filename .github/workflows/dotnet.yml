@@ -1,10 +1,9 @@
 name: .NET API CI
 
-on: 
+on:
   workflow_dispatch:
 
 jobs:
-  # ---------- CATALOGO ----------
   catalogo-build:
     runs-on: ubuntu-latest
     defaults:
@@ -12,105 +11,64 @@ jobs:
         working-directory: ./catalogo-api/FastTech.Catalogo
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
 
-  catalogo-tests:
+  catalogo-unit-tests:
     needs: catalogo-build
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./catalogo-api/FastTech.Catalogo.Application.Test
+        working-directory: ./catalogo-api/FastTech.Catalogo/FastTech.Catalogo.Application.Test
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Run Unit Tests
-      run: dotnet test --configuration Release --verbosity normal
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-  # ---------- AUTENTICACAO ----------
-  auth-build:
+      - name: Run unit tests (Catalogo)
+        run: dotnet test --configuration Release --verbosity normal
+
+  autenticacao-unit-tests:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./autenticacao-api/FastTech.Autenticacao
+        working-directory: ./autenticacao-api/FastTech.Autenticacao/FastTech.Autenticacao.Application.Test
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Run unit tests (Autenticacao)
+        run: dotnet test --configuration Release --verbosity normal
 
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-
-  auth-tests:
-    needs: auth-build
+  pedido-unit-tests:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./autenticacao-api/FastTech.Autenticacao.Application.Test
+        working-directory: ./pedido-api/FastTech.Pedido/FastTech.Pedido.Application.Test
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Run Unit Tests
-      run: dotnet test --configuration Release --verbosity normal
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-  # ---------- PEDIDO ----------
-  pedido-build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./pedido-api/FastTech.Pedido
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-
-  pedido-tests:
-    needs: pedido-build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./pedido-api/FastTech.Pedido.Application.Test
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Run Unit Tests
-      run: dotnet test --configuration Release --verbosity normal
+      - name: Run unit tests (Pedido)
+        run: dotnet test --configuration Release --verbosity normal
