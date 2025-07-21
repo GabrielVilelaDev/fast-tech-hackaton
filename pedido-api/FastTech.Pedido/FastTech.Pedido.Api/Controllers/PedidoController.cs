@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FastTech.Pedido.Api.Controllers
 {
     [ApiController]
-    [Route("api/pedidos")]
+    [Route("api/pedido")]
     public class PedidoController : ControllerBase
     {
         private readonly IPedidoService _pedidoService;
@@ -22,14 +22,14 @@ namespace FastTech.Pedido.Api.Controllers
             return CreatedAtAction(nameof(ObterPedidoPorId), new { id }, id);
         }
 
-        [HttpPut("cancelar")]
+        [HttpPatch("cancelar")]
         public async Task<IActionResult> CancelarPedido([FromBody] PedidoCancelamentoDto dto)
         {
             await _pedidoService.CancelarPedidoAsync(dto);
             return NoContent();
         }
 
-        [HttpPut("status")]
+        [HttpPatch("status")]
         public async Task<IActionResult> AtualizarStatusPedido([FromBody] PedidoUpdateStatusDto dto)
         {
             await _pedidoService.AtualizarStatusAsync(dto);

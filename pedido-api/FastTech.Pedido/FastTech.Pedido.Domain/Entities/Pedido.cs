@@ -11,7 +11,6 @@ namespace FastTech.Pedido.Domain.Entities
     public class Pedido : EntidadeBase
     {
         public string CodigoPedido { get; private set; }
-        public Guid IdCliente { get; private set; }
         public ClientePedido Cliente { get; private set; }
         public FormaEntrega FormaEntrega { get; private set; }
         public StatusPedido Status { get; private set; }
@@ -27,11 +26,10 @@ namespace FastTech.Pedido.Domain.Entities
         public IReadOnlyCollection<StatusPedidoHistorico> Historico => _historico.AsReadOnly();
 
         public Pedido() { }
-        public Pedido(Guid idCliente, ClientePedido cliente, FormaEntrega formaEntrega)
+        public Pedido(ClientePedido cliente, FormaEntrega formaEntrega)
         {
             Id = Guid.NewGuid();
             CodigoPedido = $"P-{Guid.NewGuid().ToString()[..8].ToUpper()}";
-            IdCliente = idCliente;
             Cliente = cliente;
             DataHoraCriacao = DateTime.UtcNow;
             FormaEntrega = formaEntrega;
@@ -70,7 +68,17 @@ namespace FastTech.Pedido.Domain.Entities
 
         private void RegistrarHistorico(StatusPedido status, Guid? idFuncionario = null, string? observacao = null)
         {
-            _historico.Add(new StatusPedidoHistorico(status, idFuncionario, observacao));
+            _historico.Add(new StatusPedidoHistorico(Id, status, idFuncionario, observacao));
+        }
+
+        public StatusPedidoHistorico? DesempilharHistorico()
+        {
+            var historico  = _historico.LastOrDefault();
+
+            if (historico is not null)
+                _historico.RemoveAt(_historico.Count - 1);
+
+            return historico;
         }
     }
 }

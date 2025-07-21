@@ -1,5 +1,5 @@
 using FastTech.Pedido.Application;
-using FastTech.Pedido.Infraestructure;
+using FastTech.Pedido.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
