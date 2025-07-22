@@ -1,0 +1,391 @@
+type: spec.insomnia.rest/5.0
+name: hackathon-catalogo
+meta:
+  id: wrk_d8d946ea1b7d4a7ca918f63bdfb70c24
+  created: 1751760575313
+  modified: 1752473720235
+  description: ""
+collection:
+  - url: "{{url}}/api/item"
+    name: api/item
+    meta:
+      id: req_61b6d19364fe4ea8b2fc4914cbfa673c
+      created: 1751760916954
+      modified: 1753077898701
+      isPrivate: false
+      description: ""
+      sortKey: -1750499135031.8125
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/item/56d65390-a91d-4ea7-9cf4-30c9a807d7d1"
+    name: api/item/{id}
+    meta:
+      id: req_44d780dce3a64e81afdc42c78e3540f9
+      created: 1751761051769
+      modified: 1753086783588
+      isPrivate: false
+      description: ""
+      sortKey: -1750288838044.7812
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/item/2d51fe04-90b9-43bf-b3de-ef014ddba5b7"
+    name: api/item/{id}
+    meta:
+      id: req_cfc5d546868a47f89db2a12235956b1d
+      created: 1751761061023
+      modified: 1753086804005
+      isPrivate: false
+      description: ""
+      sortKey: -1750183689551.2656
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        		"id": "56d65390-a91d-4ea7-9cf4-30c9a807d7d1",
+        		"nome": "Sanduíche de abroba2",
+        		"descricao": "Pão brioche, bland de 180g de carne de abroba2, ketchup, tomate, ovo.",
+        		"tipoRefeicaoId": "08ddbc2f-1bc7-417d-83cd-fcaeb362c5da",
+        		"tipoRefeicaoNome": "Lanche",
+        		"valor": 100.01
+        	}
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/item"
+    name: api/item
+    meta:
+      id: req_b9daf22e8dd540fe800967d7da6c1089
+      created: 1751761072970
+      modified: 1753086772903
+      isPrivate: false
+      description: ""
+      sortKey: -1750577996401.9492
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+          "nome": "Sanduíche de abroba",
+          "descricao": "Pão brioche, bland de 180g de carne de abroba, ketchup, tomate, ovo.",
+          "tipoRefeicaoId": "08ddbc2f-1bc7-417d-83cd-fcaeb362c5da",
+          "valor": 102
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/cardapio"
+    name: api/cardapio
+    meta:
+      id: req_103d4c8b9d33459bb0938b2a700f5db2
+      created: 1751761083967
+      modified: 1753077864635
+      isPrivate: false
+      description: ""
+      sortKey: -1750919729005.875
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/cardapio/05034cd2-b299-4579-9bfd-bac87f861f90"
+    name: api/cardapio/{id}
+    meta:
+      id: req_28e7d2a2c7b440cda1c76ba339c31df6
+      created: 1751761107828
+      modified: 1753088065638
+      isPrivate: false
+      description: ""
+      sortKey: -1750709432018.8438
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/cardapio"
+    name: api/cardapio
+    meta:
+      id: req_8a67d492e1fe4e78b6902c45cfed3fd7
+      created: 1751761119198
+      modified: 1753086604084
+      isPrivate: false
+      description: ""
+      sortKey: -1751340322979.9375
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "nome": "sanduíches de carnes boa ou não3",
+          "descricao": "só carne boa ou não3.",
+          "itensIds": [
+            "18934743-e24d-4566-89ae-3367e2a9d910",
+        		"28adcc02-b0af-414b-a9ad-ec0ca5b77799"
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/cardapio/05034cd2-b299-4579-9bfd-bac87f861f90"
+    name: api/cardapio/{id}
+    meta:
+      id: req_e730926bd4e143cba0b4fa9f0b9ef4be
+      created: 1751761208823
+      modified: 1753087507571
+      isPrivate: false
+      description: ""
+      sortKey: -1750656857772.086
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        	{
+        		"id": "05034cd2-b299-4579-9bfd-bac87f861f90",
+        		"nome": "boaaaaaaaaaaaaaaaaa",
+        		"descricao": "só carne boa4.",
+        		"ItensIds": [
+        			"28adcc02-b0af-414b-a9ad-ec0ca5b77799"
+        		]
+        	}
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/item/2d51fe04-90b9-43bf-b3de-ef014ddba5b7"
+    name: api/item/{id}
+    meta:
+      id: req_84ffaed6b93d48afa463b9a1411745a5
+      created: 1751761236593
+      modified: 1753077918977
+      isPrivate: false
+      description: ""
+      sortKey: -1747607551460.1328
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/cardapio/0406976b-b938-46bc-b40f-bfa12311a7e6"
+    name: api/cardapio/{id}
+    meta:
+      id: req_305d0474f40c49dea27521fdf554c559
+      created: 1751761241349
+      modified: 1753077880061
+      isPrivate: false
+      description: ""
+      sortKey: -1750617427087.0176
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/tipo-refeicao"
+    name: api/tipo-refeicao
+    meta:
+      id: req_b0b7a8c11a4441a7a6f3c7da7428f11e
+      created: 1751761288707
+      modified: 1753077922354
+      isPrivate: false
+      description: ""
+      sortKey: -1747607551310.1328
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/tipo-refeicao/08ddbc2f-1bc7-417d-83cd-fcaeb362c5da"
+    name: api/tipo-refeicao/{id}
+    meta:
+      id: req_f636bcecd7034a6abda6a746bc26b94c
+      created: 1751761305405
+      modified: 1753077926273
+      isPrivate: false
+      description: ""
+      sortKey: -1747607551285.1328
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/tipo-refeicao/nome/lanche"
+    name: api/tipo-refeicao/nome/{nome}
+    meta:
+      id: req_de9db5b3487b4d9ab2a2aed26eeecc0e
+      created: 1751766697875
+      modified: 1753077929708
+      isPrivate: false
+      description: ""
+      sortKey: -1746319482327.0664
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_a0c77478cc763607e305d1fa3f51a05f203fa8a9
+    created: 1751760575322
+    modified: 1751760575322
+environments:
+  name: Base Environment
+  meta:
+    id: env_a0c77478cc763607e305d1fa3f51a05f203fa8a9
+    created: 1751760575319
+    modified: 1753080955328
+    isPrivate: false
+  data:
+    url: https://localhost:44327
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiR2VyZW50ZSIsIkVtYWlsIjoiZ2VyZW50ZTFAZW1haWwuY29tIiwiUGVyZmlsIjoiR2VyZW50ZSIsIklkIjoiYWY2MGQ4Y2QtOGRmMy00ZmVjLWI2NTgtNGUzODk3OTA0MmM3IiwibmJmIjoxNzUzMDc2Nzk4LCJleHAiOjE3NTMxMDU1OTgsImlhdCI6MTc1MzA3Njc5OH0.iAnvIKLmw-IW3J47jqqTDALcli4WRFVHBnOzIUYPNGM
+spec:
+  meta:
+    id: spc_816c80f39220492485c2de9fc3217bfd
+    created: 1751760757172
+    modified: 1753077838830

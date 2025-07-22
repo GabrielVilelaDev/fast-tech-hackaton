@@ -1,0 +1,194 @@
+type: spec.insomnia.rest/5.0
+name: hackathon-autenticacao
+meta:
+  id: wrk_b1988bb815144e69a50eb5d0295a7396
+  created: 1752473735693
+  modified: 1752473735693
+  description: ""
+collection:
+  - url: "{{url}}/api/auth/cadastro"
+    name: api/auth/cadastro
+    meta:
+      id: req_518fc9beecb142b89a3da030dc813106
+      created: 1752473735707
+      modified: 1753071581907
+      isPrivate: false
+      description: ""
+      sortKey: -1751340322979.9375
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "nome": "Gerente",
+          "email": "gerente1@email.com",
+          "senha": "Gerente@1",
+          "cpf": "24172830005",
+          "perfil": 3
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/auth/a0b4280b-4eb4-4a8b-8407-023b6e87cf02"
+    name: api/auth/{id}
+    meta:
+      id: req_361187462a6747df82982057de94a544
+      created: 1752473735711
+      modified: 1753071497474
+      isPrivate: false
+      description: ""
+      sortKey: -1747607551285.1328
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiR2FicmllbHppbSBQSkwgZ3VpYWTDo28gcG9yIERldXMiLCJFbWFpbCI6ImdhYnJpZWxAZW1haWwuY29tIiwiUGVyZmlsIjoiQ2xpZW50ZSIsIklkIjoiZjcwOTk2ZWItMzg1MS00NGJmLWI3ZjQtN2VhOGNjZGU2ZTE5IiwiZXhwIjoxNzUyNTAzNDcwfQ.5ssOZ_gzRn6n6_ml-4c9uLTrWD4VSxwiDVTgJDtdDO4
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/auth/login"
+    name: api/auth/login
+    meta:
+      id: req_6a48e2469f0b4bf398ae9aad421cde88
+      created: 1752473983945
+      modified: 1753071597885
+      isPrivate: false
+      description: ""
+      sortKey: -1751130025992.9062
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "email": "gerente1@email.com",
+          "senha": "Gerente@1"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/auth/f70996eb-3851-44bf-b7f4-7ea8ccde6e19/senha"
+    name: api/auth/{id}/senha
+    meta:
+      id: req_b6113529c44c45e4a514fae553c3f4b5
+      created: 1752474013393
+      modified: 1752475390067
+      isPrivate: false
+      description: ""
+      sortKey: -1751235174486.4219
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: '"novaSenha1"'
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      disabled: false
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiR2FicmllbHppbSBQSkwgZ3VpYWTDo28gcG9yIERldXMiLCJFbWFpbCI6ImdhYnJpZWxAZW1haWwuY29tIiwiUGVyZmlsIjoiQ2xpZW50ZSIsIklkIjoiZjcwOTk2ZWItMzg1MS00NGJmLWI3ZjQtN2VhOGNjZGU2ZTE5IiwiZXhwIjoxNzUyNTAzNDcwfQ.5ssOZ_gzRn6n6_ml-4c9uLTrWD4VSxwiDVTgJDtdDO4
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/auth/f70996eb-3851-44bf-b7f4-7ea8ccde6e19/inativar"
+    name: api/auth/{id}/inativar
+    meta:
+      id: req_dea199c558674a51b5f1b615da832d70
+      created: 1752474098275
+      modified: 1752474786414
+      isPrivate: false
+      description: ""
+      sortKey: -1751182600239.664
+    method: PATCH
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiR2FicmllbHppbSBQSkwgZ3VpYWTDo28gcG9yIERldXMiLCJFbWFpbCI6ImdhYnJpZWxAZW1haWwuY29tIiwiUGVyZmlsIjoiQ2xpZW50ZSIsIklkIjoiZjcwOTk2ZWItMzg1MS00NGJmLWI3ZjQtN2VhOGNjZGU2ZTE5IiwiZXhwIjoxNzUyNTAzNDcwfQ.5ssOZ_gzRn6n6_ml-4c9uLTrWD4VSxwiDVTgJDtdDO4
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/auth/f70996eb-3851-44bf-b7f4-7ea8ccde6e19/ativar"
+    name: api/auth/{id}/ativar
+    meta:
+      id: req_e3d33d1143974b139646e43b7d1a44f5
+      created: 1752474103189
+      modified: 1752474792518
+      isPrivate: false
+      description: ""
+      sortKey: -1751156313116.2852
+    method: PATCH
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiR2FicmllbHppbSBQSkwgZ3VpYWTDo28gcG9yIERldXMiLCJFbWFpbCI6ImdhYnJpZWxAZW1haWwuY29tIiwiUGVyZmlsIjoiQ2xpZW50ZSIsIklkIjoiZjcwOTk2ZWItMzg1MS00NGJmLWI3ZjQtN2VhOGNjZGU2ZTE5IiwiZXhwIjoxNzUyNTAzNDcwfQ.5ssOZ_gzRn6n6_ml-4c9uLTrWD4VSxwiDVTgJDtdDO4
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_4e8ee5bc70e146358a44206ee05d974b
+    created: 1752473735698
+    modified: 1752473735698
+environments:
+  name: Base Environment
+  meta:
+    id: env_30bf718bf1b842b9afcd187f24043214
+    created: 1752473735696
+    modified: 1752474737921
+    isPrivate: false
+  data:
+    url: https://localhost:44317
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiR2FicmllbHppbSBQSkwgZ3VpYWTDo28gcG9yIERldXMiLCJFbWFpbCI6ImdhYnJpZWxAZW1haWwuY29tIiwiUGVyZmlsIjoiQ2xpZW50ZSIsIklkIjoiZjcwOTk2ZWItMzg1MS00NGJmLWI3ZjQtN2VhOGNjZGU2ZTE5IiwiZXhwIjoxNzUyNTAzNDcwfQ.5ssOZ_gzRn6n6_ml-4c9uLTrWD4VSxwiDVTgJDtdDO4
+spec:
+  meta:
+    id: spc_c045161a082b471eab15abc05aa6aae6
+    created: 1752473735699
+    modified: 1752473947756
