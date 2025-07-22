@@ -1,0 +1,119 @@
+name: .NET API CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  # ---------- Catalogo ----------
+  catalogo-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./catalogo-api/FastTech.Catalogo
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+  catalogo-unit-tests:
+    needs: catalogo-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./catalogo-api/FastTech.Catalogo/FastTech.Catalogo.Application.Test
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Run unit tests (Catalogo)
+        run: dotnet test --configuration Release --verbosity normal
+
+  # ---------- Autenticacao ----------
+  autenticacao-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./autenticacao-api/FastTech.Autenticacao
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+  autenticacao-unit-tests:
+    needs: autenticacao-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./autenticacao-api/FastTech.Autenticacao/FastTech.Autenticacao.Application.Test
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Run unit tests (Autenticacao)
+        run: dotnet test --configuration Release --verbosity normal
+
+  # ---------- Pedido ----------
+  pedido-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pedido-api/FastTech.Pedido
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+  pedido-unit-tests:
+    needs: pedido-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pedido-api/FastTech.Pedido/FastTech.Pedido.Application.Test
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Run unit tests (Pedido)
+        run: dotnet test --configuration Release --verbosity normal

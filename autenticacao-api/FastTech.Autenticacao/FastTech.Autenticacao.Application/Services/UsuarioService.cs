@@ -11,10 +11,14 @@ namespace FastTech.Autenticacao.Application.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ITokenService _tokenService;
+        private readonly IEventPublisher _eventPublisher;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository)
+        public UsuarioService(IUsuarioRepository usuarioRepository, ITokenService tokenService, IEventPublisher eventPublisher)
         {
             _usuarioRepository = usuarioRepository;
+            _tokenService = tokenService;
+            _eventPublisher = eventPublisher;
         }
 
         public async Task<Guid> CadastrarAsync(UsuarioCadastroDto dto)
@@ -34,6 +38,15 @@ namespace FastTech.Autenticacao.Application.Services
             await _usuarioRepository.AdicionarAsync(usuario);
             await _usuarioRepository.SalvarAlteracoesAsync();
 
+            await _eventPublisher.PublishAsync("autenticacao.usuario", "usuario.created", new UsuarioCreatedDto
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email.Endereco,
+                Cpf = usuario.Cpf?.Numero,
+                Perfil = usuario.Perfil
+            });
+
             return usuario.Id;
         }
 
@@ -50,13 +63,36 @@ namespace FastTech.Autenticacao.Application.Services
             if (usuario == null || !usuario.VerificarSenha(dto.Senha))
                 return null;
 
-            return new UsuarioOutputDto
+            var usuarioRetornoDto = new UsuarioOutputDto
             {
                 Id = usuario.Id,
                 Nome = usuario.Nome,
                 Email = usuario.Email.Endereco,
                 Perfil = usuario.Perfil.ToString()
             };
+
+            string token = _tokenService.GerarToken(usuarioRetornoDto);
+            usuarioRetornoDto.Token = token;
+
+            return usuarioRetornoDto;
+        }
+
+        public async Task<UsuarioOutputDto?> ObterPorIdAsync(Guid id)
+        {
+            var usuario = await _usuarioRepository.ObterPorIdAsync(id);
+
+            if (usuario is null)
+                return null;
+
+            var usuarioRetornoDto = new UsuarioOutputDto
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email.Endereco,
+                Perfil = usuario.Perfil.ToString()
+            };
+
+            return usuarioRetornoDto;
         }
 
         public async Task AtualizarSenhaAsync(Guid idUsuario, string novaSenha)

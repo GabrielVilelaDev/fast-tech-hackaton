@@ -2,6 +2,7 @@
 using FastTech.Autenticacao.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace FastTech.Autenticacao.API.Controllers;
 
@@ -20,7 +21,6 @@ public class UsuarioController : ControllerBase
     [AllowAnonymous]
     public async Task<ActionResult<UsuarioOutputDto>> Login([FromBody] UsuarioLoginDto dto)
     {
-        //TODO: Implementar serviço de JWT para devolver token.
         var usuario = await _usuarioService.AutenticarAsync(dto);
         if (usuario == null)
             return Unauthorized();
@@ -36,8 +36,7 @@ public class UsuarioController : ControllerBase
         return CreatedAtAction(nameof(ObterPorId), new { id }, id);
     }
 
-    [HttpPut("{id}/senha")]
-    [Authorize(Roles = "Cliente,Funcionario,Gerente")]
+    [HttpPatch("{id}/senha")]
     public async Task<IActionResult> AtualizarSenha(Guid id, [FromBody] string novaSenha)
     {
         await _usuarioService.AtualizarSenhaAsync(id, novaSenha);
@@ -45,7 +44,6 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPatch("{id}/inativar")]
-    [Authorize(Roles = "Gerente")]
     public async Task<IActionResult> Inativar(Guid id)
     {
         await _usuarioService.InativarAsync(id);
@@ -53,7 +51,6 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPatch("{id}/reativar")]
-    [Authorize(Roles = "Gerente")]
     public async Task<IActionResult> Reativar(Guid id)
     {
         await _usuarioService.ReativarAsync(id);
@@ -61,9 +58,13 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(Roles = "Gerente")]
-    public IActionResult ObterPorId(Guid id)
+    public async Task<IActionResult> ObterPorId(Guid id)
     {
-        return Ok(id);
+        var usuario = await _usuarioService.ObterPorIdAsync(id);
+
+        if (usuario is null)
+            return NotFound();
+
+        return Ok(usuario);
     }
 }

@@ -10,6 +10,8 @@ namespace FastTech.Autenticacao.Domain.ValueObjects
     {
         public string Numero { get; private set; }
 
+        public Cpf() { }
+
         public Cpf(string numero)
         {
             if (!IsCpfValido(numero))

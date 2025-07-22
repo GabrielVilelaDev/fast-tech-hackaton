@@ -1,11 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using FastTech.Autenticacao.Application.Interfaces;
 using FastTech.Autenticacao.Application.Services;
 using FastTech.Autenticacao.Domain.Entities;
 using FastTech.Autenticacao.Domain.Enums;
 using FastTech.Autenticacao.Domain.Interfaces;
 using FastTech.Autenticacao.Domain.ValueObjects;
 using Moq;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace FastTech.Autenticacao.Application.Test.Unitario.UsuarioService;
@@ -15,11 +16,15 @@ public class UsuarioService_AtualizarSenhaAsyncTeste
 {
     private readonly Mock<IUsuarioRepository> mockRepository;
     private readonly Services.UsuarioService usuarioService;
+    private readonly Mock<ITokenService> mockTokenService;
+    private readonly Mock<IEventPublisher> mockEventPublisher;
 
     public UsuarioService_AtualizarSenhaAsyncTeste()
     {
         mockRepository = new Mock<IUsuarioRepository>();
-        usuarioService = new Services.UsuarioService(mockRepository.Object);
+        mockTokenService = new Mock<ITokenService>();
+        mockEventPublisher = new Mock<IEventPublisher>();
+        usuarioService = new Services.UsuarioService(mockRepository.Object, mockTokenService.Object, mockEventPublisher.Object);
     }
 
     [Fact]

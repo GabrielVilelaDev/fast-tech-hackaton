@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FastTech.Autenticacao.Application.Interfaces;
 using FastTech.Autenticacao.Application.Services;
 using FastTech.Autenticacao.Domain.Entities;
 using FastTech.Autenticacao.Domain.Enums;
@@ -14,12 +15,18 @@ namespace FastTech.Autenticacao.Application.Test.Unitario.UsuarioService;
 public class UsuarioService_ReativarAsyncTeste
 {
     private readonly Mock<IUsuarioRepository> mockRepository;
+    private readonly Mock<ITokenService> mockTokenService;
     private readonly Services.UsuarioService usuarioService;
+    private readonly Mock<IEventPublisher> mockEventPublisher;
+
 
     public UsuarioService_ReativarAsyncTeste()
     {
         mockRepository = new Mock<IUsuarioRepository>();
-        usuarioService = new Services.UsuarioService(mockRepository.Object);
+        mockTokenService = new Mock<ITokenService>();
+        mockEventPublisher = new Mock<IEventPublisher>();
+
+        usuarioService = new Services.UsuarioService(mockRepository.Object, mockTokenService.Object, mockEventPublisher.Object);
     }
 
     [Fact]
@@ -27,7 +34,7 @@ public class UsuarioService_ReativarAsyncTeste
     {
         // Arrange
         var id = Guid.NewGuid();
-        var usuario = new Usuario("Fernanda", new Email("fernanda@email.com"), new Senha("senha"), PerfilUsuario.Gerente);
+        var usuario = new Usuario("Fernanda", new Email("fernanda@email.com"), new Senha("senhaValida"), PerfilUsuario.Gerente);
         usuario.Inativar();
 
         mockRepository.Setup(r => r.ObterPorIdAsync(id)).ReturnsAsync(usuario);

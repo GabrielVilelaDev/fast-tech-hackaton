@@ -16,7 +16,9 @@ namespace FastTech.Autenticacao.Domain.Entities
         public Cpf? Cpf { get; private set; }
         public PerfilUsuario Perfil { get; private set; }
         public bool Ativo { get; private set; }
-        public DateTime CriadoEm { get; private set; }
+        public DateTime DataCriacao { get; private set; }
+
+        public Usuario() { }
 
         public Usuario(string nome, Email email, Senha senha, PerfilUsuario perfil, Cpf? cpf = null)
         {
@@ -27,7 +29,7 @@ namespace FastTech.Autenticacao.Domain.Entities
             Perfil = perfil;
             Cpf = cpf;
             Ativo = true;
-            CriadoEm = DateTime.UtcNow;
+            DataCriacao = DateTime.UtcNow;
         }
 
         public void AtualizarSenha(Senha novaSenha)
