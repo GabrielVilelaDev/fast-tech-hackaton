@@ -43,7 +43,7 @@ spec:
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-configmap
+                  name: catalogo-mysql-configmap
                   key: DB_DATABASE
           livenessProbe:
             exec:

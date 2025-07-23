@@ -72,7 +72,7 @@ spec:
             - configMapRef:
                 name: api-configmap
             - configMapRef:
-                name: mysql-configmap
+                name: catalogo-mysql-configmap
             - secretRef:
                 name: mysql-secret
           resources:

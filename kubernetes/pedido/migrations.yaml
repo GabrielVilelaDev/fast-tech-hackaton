@@ -28,7 +28,7 @@ spec:
               value: "Server=pedido-mysql-svc;Database=$(DB_DATABASE);User=$(DB_USER);Password=$(DB_PASSWORD);Port=$(DB_PORT);"
           envFrom:
             - configMapRef:
-                name: mysql-configmap
+                name: pedido-mysql-configmap
             - secretRef:
                 name: mysql-secret
       restartPolicy: OnFailure

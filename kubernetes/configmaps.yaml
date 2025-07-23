@@ -1,9 +1,29 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-configmap
+  name: auth-mysql-configmap
+data:
+  DB_DATABASE: "fasttech_autenticacao"
+  DB_PORT: "3306"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogo-mysql-configmap
 data:
   DB_DATABASE: "fasttech_catalogo"
+  DB_PORT: "3306"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pedido-mysql-configmap
+data:
+  DB_DATABASE: "fasttech_pedido"
   DB_PORT: "3306"
 
 ---
