@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap
+data:
+  DB_DATABASE: "fasttech_catalogo"
+  DB_PORT: "3306"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zabbix-configmap
+data:
+  MYSQL_DATABASE: "zabbix"
+  DB_SERVER_HOST: "zabbix-mysql-svc"
+  ZBX_SERVER_HOST: "zabbix-server-svc"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-configmap
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  RABBITMQ_HOST: "rabbitmq-svc"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-configmap
+data:
+  GF_INSTALL_PLUGINS: "alexanderzobnin-zabbix-app"

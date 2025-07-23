@@ -1,0 +1,208 @@
+type: spec.insomnia.rest/5.0
+name: hackathon-pedido
+meta:
+  id: wrk_12813eafb9464c9bb27eb4d150f26e98
+  created: 1753031460182
+  modified: 1753031460182
+  description: ""
+collection:
+  - url: "{{url}}/api/pedido"
+    name: api/pedido
+    meta:
+      id: req_805b4a5e40ec4617989188fafbb0e5d8
+      created: 1752473735707
+      modified: 1753072099479
+      isPrivate: false
+      description: ""
+      sortKey: -1751340322979.9375
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "cliente": {
+            "idCliente": "3fa85f64-5717-4562-b3fc-2c963f66afa9",
+            "nome": "ze",
+            "email": "ze@mail4.com"
+          },
+          "formaEntrega": 2,
+          "itens": [
+            {
+              "idItemCardapio": "3fa85f64-5717-4562-b3fc-2c963f66afa9",
+              "nome": "item4",
+              "precoUnitario": 4,
+              "quantidade": 4
+            }
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+      disabled: false
+    scripts:
+      preRequest: ""
+      afterResponse: ""
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/pedido/d7b969d3-3c8f-429c-9cd9-1d0f0e084d84"
+    name: api/pedido/{id}
+    meta:
+      id: req_1654d758ce4e4d5bad34f1e93e51e4d0
+      created: 1752473735711
+      modified: 1753077825603
+      isPrivate: false
+      description: ""
+      sortKey: -1747607551285.1328
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    scripts:
+      preRequest: ""
+      afterResponse: ""
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/pedido/cancelar"
+    name: api/pedido/cancelar
+    meta:
+      id: req_ac8694ad90ce47caa362f58261c032c2
+      created: 1752474013393
+      modified: 1753077804766
+      isPrivate: false
+      description: ""
+      sortKey: -1751235174486.4219
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "idPedido": "d7b969d3-3c8f-429c-9cd9-1d0f0e084d84",
+          "justificativa": "por que sim"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      disabled: false
+      token: "{{token}}"
+    scripts:
+      preRequest: ""
+      afterResponse: ""
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/pedido/status"
+    name: api/pedido/status
+    meta:
+      id: req_a61400ad1b14449eba7afbea3ba9fde2
+      created: 1753055869423
+      modified: 1753077818159
+      isPrivate: false
+      description: ""
+      sortKey: -1751208887363.043
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "idPedido": "d7b969d3-3c8f-429c-9cd9-1d0f0e084d84",
+          "novoStatus": 2,
+          "idFuncionario": "3fa85f64-5717-4562-b3fc-2c963f66afa9",
+          "observacao": "nutim"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      disabled: false
+      token: "{{token}}"
+    scripts:
+      preRequest: ""
+      afterResponse: ""
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{url}}/api/pedido/cliente/3fa85f64-5717-4562-b3fc-2c963f66afa9"
+    name: api/pedido/cliente/{idCliente}
+    meta:
+      id: req_de4c8a5ef919404a954251724af2e13d
+      created: 1753055893568
+      modified: 1753077828872
+      isPrivate: false
+      description: ""
+      sortKey: -1746963516806.0996
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    authentication:
+      type: bearer
+      token: "{{token}}"
+    scripts:
+      preRequest: ""
+      afterResponse: ""
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_05bb989ce35146fc932631ac0062282d
+    created: 1752473735698
+    modified: 1752473735698
+environments:
+  name: Base Environment
+  meta:
+    id: env_3fe23cc0e37447b593a2576e4f8a862b
+    created: 1752473735696
+    modified: 1753076856336
+    isPrivate: false
+  data:
+    url: https://localhost:44388
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21lIjoiQ2xpZW50ZSIsIkVtYWlsIjoiY2xpZW50ZTFAZW1haWwuY29tIiwiUGVyZmlsIjoiQ2xpZW50ZSIsIklkIjoiZDIzZDY4MDYtYjFjYy00NjA0LTlkM2UtMGIyYjU4NDgyZDc1IiwibmJmIjoxNzUzMDc2Njg2LCJleHAiOjE3NTMxMDU0ODYsImlhdCI6MTc1MzA3NjY4Nn0.btsonUpvWzUVE6b0ptml0BDjQlQ4eY3DNfBRSB4OpS0
+spec:
+  meta:
+    id: spc_dbb15191509f4cca955b4f5cbad68a93
+    created: 1753031460184
+    modified: 1753031460184

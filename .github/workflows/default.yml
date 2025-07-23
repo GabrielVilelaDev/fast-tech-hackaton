@@ -1,0 +1,43 @@
+name: .NET API CI
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  catalogo-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./catalogo-api/FastTech.Catalogo
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+  catalogo-unit-tests:
+    needs: catalogo-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./auth-api
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Run unit tests
+      run: dotnet test --configuration Release --verbosity normal
